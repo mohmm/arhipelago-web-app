@@ -1,0 +1,206 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@plugin '@tailwindcss/typography';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * The Smartsense theme, taken from the app's design: one red for every action
+ * and active state, a soft red behind highlighted items, near-black text, and
+ * light grey borders. The admin panel, the website and the mobile app share it.
+ */
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    /* The logo's red, for the brand mark and branded surfaces. */
+    --color-brand: var(--brand);
+    --color-brand-foreground: var(--brand-foreground);
+    --color-brand-accent: var(--brand-accent);
+    --color-brand-subtle: var(--brand-subtle);
+
+    --color-success: var(--success);
+    --color-success-subtle: var(--success-subtle);
+    --color-warning: var(--warning);
+    --color-star: var(--star);
+
+    /* The yellow chip of a listed historic monument ("Monument istoric"). */
+    --color-heritage: var(--heritage);
+    --color-heritage-foreground: var(--heritage-foreground);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+    --radius: 0.75rem;
+
+    --background: #ffffff;
+    --foreground: #0a0a0a;
+    --card: #ffffff;
+    --card-foreground: #0a0a0a;
+    --popover: #ffffff;
+    --popover-foreground: #0a0a0a;
+    --primary: #d63729;
+    --primary-foreground: #ffffff;
+    --secondary: #f4f4f4;
+    --secondary-foreground: #0a0a0a;
+    --muted: #f5f5f5;
+    --muted-foreground: #6b6b6b;
+    --accent: #fce9e7;
+    --accent-foreground: #b42318;
+    --destructive: #b42318;
+    --destructive-foreground: #ffffff;
+    --border: #e8e8e8;
+    --input: #d4d4d4;
+    --ring: #d63729;
+
+    --brand: #e24334;
+    --brand-foreground: #ffffff;
+    --brand-accent: #b42318;
+    --brand-subtle: #fce9e7;
+
+    --success: #15803d;
+    --success-subtle: #dcfce7;
+    --warning: #b45309;
+    --star: #f59e0b;
+
+    --heritage: #fff4cc;
+    --heritage-foreground: #7a5c00;
+
+    --sidebar: #ffffff;
+    --sidebar-foreground: #0a0a0a;
+    --sidebar-primary: #d63729;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #fce9e7;
+    --sidebar-accent-foreground: #b42318;
+    --sidebar-border: #ededed;
+    --sidebar-ring: #d63729;
+}
+
+.dark {
+    --background: #0f0f10;
+    --foreground: #f5f5f5;
+    --card: #17171a;
+    --card-foreground: #f5f5f5;
+    --popover: #17171a;
+    --popover-foreground: #f5f5f5;
+    --primary: #e85a4c;
+    --primary-foreground: #ffffff;
+    --secondary: #232327;
+    --secondary-foreground: #f5f5f5;
+    --muted: #232327;
+    --muted-foreground: #a1a1aa;
+    --accent: #3a1d1a;
+    --accent-foreground: #ffb4aa;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #2a2a2e;
+    --input: #3a3a40;
+    --ring: #e85a4c;
+
+    --brand: #e85a4c;
+    --brand-foreground: #ffffff;
+    --brand-accent: #ffb4aa;
+    --brand-subtle: #3a1d1a;
+
+    --success: #4ade80;
+    --success-subtle: #14321f;
+    --warning: #fbbf24;
+    --star: #fbbf24;
+
+    --heritage: #3d3205;
+    --heritage-foreground: #fde68a;
+
+    --sidebar: #131315;
+    --sidebar-foreground: #f5f5f5;
+    --sidebar-primary: #e85a4c;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #3a1d1a;
+    --sidebar-accent-foreground: #ffb4aa;
+    --sidebar-border: #232327;
+    --sidebar-ring: #e85a4c;
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+
+    ::selection {
+        background-color: var(--brand);
+        color: var(--brand-foreground);
+    }
+
+    /* Tailwind v4 dropped the pointer from its preflight; anything clickable gets it back. */
+    button:not(:disabled),
+    [role='button']:not(:disabled),
+    input[type='checkbox']:not(:disabled),
+    input[type='radio']:not(:disabled) {
+        cursor: pointer;
+    }
+
+    /* Headings in the design are set tight. */
+    h1,
+    h2,
+    h3 {
+        letter-spacing: -0.02em;
+    }
+}
+
+/* A faint graph-paper wash for the public pages' hero sections. */
+@utility bg-grid {
+    background-image:
+        linear-gradient(to right, var(--border) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 56px 56px;
+}

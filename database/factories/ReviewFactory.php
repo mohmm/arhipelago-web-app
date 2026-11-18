@@ -1,0 +1,28 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\PointOfInterest;
+use App\Models\Review;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends Factory<Review>
+ */
+class ReviewFactory extends Factory
+{
+    /**
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'user_id' => User::factory(),
+            'reviewable_type' => 'point_of_interest',
+            'reviewable_id' => PointOfInterest::factory(),
+            'rating' => fake()->numberBetween(1, 5),
+            'body' => fake()->sentence(),
+        ];
+    }
+}

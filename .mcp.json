@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "laravel-boost": {
+      "command": "php",
+      "args": [
+        "./artisan",
+        "boost:mcp"
+      ]
+    },
+    "PlanTrip": {
+      "type": "http",
+      "url": "https://app.smartsense.ro/mcp/trip-planning"
+      // "url": "http://127.0.0.1:8000/mcp/trip-planning"
+    }
+  }
+}
