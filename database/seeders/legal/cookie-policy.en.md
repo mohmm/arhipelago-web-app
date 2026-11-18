@@ -14,7 +14,7 @@ All the cookies below are set by [APP_HOST] itself. We set no analytics or adver
 
 | Name | What it does | Duration |
 |---|---|---|
-| `smartsense_session` | Keeps a member of our team signed in to the administration panel and remembers the website language you chose. Encrypted, and not readable by the page's scripts | 120 minutes after the last visit |
+| `[SESSION_COOKIE]` | Keeps a member of our team signed in to the administration panel and remembers the website language you chose. Encrypted, and not readable by the page's scripts | 120 minutes after the last visit |
 | `XSRF-TOKEN` | Protects the panel's forms against requests forged by other websites. Encrypted | 120 minutes after the last visit |
 | `remember_web_…` | Set only when a member of our team ticks "Remember me" when signing in to the panel, to keep them signed in. Encrypted | 400 days, or until they sign out |
 | `appearance` | Remembers the light or dark theme, only after you choose one | 365 days |

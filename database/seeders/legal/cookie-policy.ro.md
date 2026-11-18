@@ -14,7 +14,7 @@ Toate cookie-urile de mai jos sunt setate chiar de [APP_HOST]. Nu setăm cookie-
 
 | Nume | Ce face | Durată |
 |---|---|---|
-| `smartsense_session` | Păstrează autentificat în panoul de administrare un membru al echipei noastre și reține limba site-ului pe care ați ales-o. Criptat și imposibil de citit de scripturile paginii | 120 de minute de la ultima vizită |
+| `[SESSION_COOKIE]` | Păstrează autentificat în panoul de administrare un membru al echipei noastre și reține limba site-ului pe care ați ales-o. Criptat și imposibil de citit de scripturile paginii | 120 de minute de la ultima vizită |
 | `XSRF-TOKEN` | Protejează formularele panoului împotriva cererilor falsificate de alte site-uri. Criptat | 120 de minute de la ultima vizită |
 | `remember_web_…` | Setat doar când un membru al echipei noastre bifează „Ține-mă minte” la autentificarea în panou, ca să rămână autentificat. Criptat | 400 de zile sau până la deconectare |
 | `appearance` | Reține tema luminoasă sau întunecată, doar după ce alegeți una | 365 de zile |

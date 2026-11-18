@@ -108,26 +108,27 @@ class LegalDocumentSeeder extends Seeder
             throw new RuntimeException("Missing legal document source: {$path}");
         }
 
-        return $this->resolveAddresses(trim((string) file_get_contents($path)));
+        return $this->resolvePlaceholders(trim((string) file_get_contents($path)));
     }
 
     /**
      * Point the documents at wherever this deployment actually lives.
      *
      * The text cites its own addresses ("the version in force is the one
-     * published at …/terms") and states which domain sets the cookies, so it
-     * is written with a placeholder that becomes this deployment's address.
+     * published at …/terms"), states which domain sets the cookies and names
+     * the session cookie, which Laravel names after APP_NAME. So it is written
+     * with placeholders that become this deployment's address and cookie name.
      *
      * Resolved at seed time rather than at render time because the result is
      * contract text: once a document is published it must not silently change
      * wording because an environment variable moved. Editing it afterwards goes
      * through the back office, where the change is versioned and audited.
      */
-    private function resolveAddresses(string $body): string
+    private function resolvePlaceholders(string $body): string
     {
         $url = rtrim((string) config('app.url'), '/');
         $host = (string) (parse_url($url, PHP_URL_HOST) ?: $url);
 
-        return str_replace(['[APP_URL]', '[APP_HOST]'], [$url, $host], $body);
+        return str_replace(['[APP_URL]', '[APP_HOST]', '[SESSION_COOKIE]'], [$url, $host, (string) config('session.cookie')], $body);
     }
 }
