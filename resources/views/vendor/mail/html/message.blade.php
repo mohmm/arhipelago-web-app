@@ -24,7 +24,7 @@
 {{-- Who is actually writing. A transactional mail from an unfamiliar domain
      with no identifiable sender is what both spam filters and people treat as
      suspicious. --}}
-{{ __('Smartsense is a product of :company.', ['company' => config('company.legal_name')]) }}
+{{ __(':app is a product of :company.', ['app' => config('app.name'), 'company' => config('company.legal_name')]) }}
 {{ config('company.address') }}, {{ config('company.country') }}
 
 © {{ date('Y') }} {{ config('company.legal_name') }}. {{ __('All rights reserved.') }}

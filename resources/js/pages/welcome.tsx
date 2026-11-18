@@ -1,8 +1,9 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { Languages, Map, MapPin, MonitorSmartphone, Route, Sparkles, Users } from 'lucide-react';
 import type { ComponentType } from 'react';
 import WebsiteLayout from '@/layouts/website-layout';
+import type { SharedData } from '@/types';
 
 type Feature = { icon: ComponentType<{ className?: string }>; title: string; text: string };
 
@@ -25,11 +26,12 @@ function AppScreens({ screens, className = '' }: { screens: Screen[]; className?
 }
 
 /**
- * The website's home page: what the Smartsense app is and what it does, as
+ * The website's home page: what the app is and what it does, as
  * the app's design presents it.
  */
 export default function Welcome() {
     const { t } = useLaravelReactI18n();
+    const { name } = usePage<SharedData>().props;
 
     const features: Feature[] = [
         {
@@ -54,7 +56,8 @@ export default function Welcome() {
                 <meta
                     name="description"
                     content={t(
-                        'Smartsense is a travel app that helps travellers discover Romania: points of interest, ready-made experiences and Maya, an AI assistant.',
+                        ':app is a travel app that helps travellers discover Romania: points of interest, ready-made experiences and Maya, an AI assistant.',
+                        { app: name },
                     )}
                 />
             </Head>
@@ -62,11 +65,12 @@ export default function Welcome() {
             <section className="overflow-hidden">
                 <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
                     <div className="grid gap-6">
-                        <p className="text-sm font-semibold text-primary">Smartsense</p>
+                        <p className="text-sm font-semibold text-primary">{name}</p>
                         <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">{t('The mobile app')}</h1>
                         <p className="text-lg leading-relaxed text-muted-foreground">
                             {t(
-                                'Smartsense is a travel app. It helps travellers discover Romania: points of interest, ready-made experiences and Maya, an AI assistant who recommends what is worth seeing. All on the same map, with photos and impressions from other travellers.',
+                                ':app is a travel app. It helps travellers discover Romania: points of interest, ready-made experiences and Maya, an AI assistant who recommends what is worth seeing. All on the same map, with photos and impressions from other travellers.',
+                                { app: name },
                             )}
                         </p>
                     </div>

@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
             $this->signOut($request);
 
             throw ValidationException::withMessages([
-                'email' => __('This account is for the Smartsense mobile app. Sign in there.'),
+                'email' => __('This account is for the :app mobile app. Sign in there.', ['app' => config('app.name')]),
             ]);
         }
 

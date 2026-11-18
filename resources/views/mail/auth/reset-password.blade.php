@@ -3,7 +3,7 @@
 
 {{ __('Hi :name,', ['name' => $name]) }}
 
-{{ __('Someone asked to reset the password for your Smartsense account. If that was you, choose a new one here.') }}
+{{ __('Someone asked to reset the password for your :app account. If that was you, choose a new one here.', ['app' => config('app.name')]) }}
 
 <x-mail::button :url="$url">
 {{ __('Choose a new password') }}

@@ -1,12 +1,12 @@
 <x-mail::message>
-# {{ __('You have been added to Smartsense') }}
+# {{ __('You have been added to :app', ['app' => config('app.name')]) }}
 
 {{ __('Hi :name,', ['name' => $name]) }}
 
 @if ($invitedBy)
-{{ __(':person has created a Smartsense account for you.', ['person' => $invitedBy]) }}
+{{ __(':person has created a :app account for you.', ['person' => $invitedBy, 'app' => config('app.name')]) }}
 @else
-{{ __('An account has been created for you on Smartsense.') }}
+{{ __('An account has been created for you on :app.', ['app' => config('app.name')]) }}
 @endif
 
 {{ __('Choose your own password to finish setting it up — nobody else will know it.') }}

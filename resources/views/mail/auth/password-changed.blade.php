@@ -3,7 +3,7 @@
 
 {{ __('Hi :name,', ['name' => $name]) }}
 
-{{ __('The password on your Smartsense account was just changed.') }}
+{{ __('The password on your :app account was just changed.', ['app' => config('app.name')]) }}
 
 @if ($ipAddress)
 <x-mail::details :rows="[__('Changed from') => $ipAddress]" />

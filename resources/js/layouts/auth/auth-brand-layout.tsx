@@ -1,8 +1,9 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
 import AppLogoIcon from '@/components/app-logo-icon';
 import LanguageSwitcher from '@/components/language-switcher';
 import { useLocalizedUrl } from '@/lib/locale';
+import type { SharedData } from '@/types';
 
 interface AuthBrandLayoutProps {
     title: string;
@@ -15,6 +16,7 @@ interface AuthBrandLayoutProps {
  */
 export default function AuthBrandLayout({ children, title, description }: PropsWithChildren<AuthBrandLayoutProps>) {
     const url = useLocalizedUrl();
+    const { name } = usePage<SharedData>().props;
 
     return (
         <div className="flex min-h-svh items-center justify-center bg-muted/40 p-4 sm:p-8">
@@ -25,7 +27,7 @@ export default function AuthBrandLayout({ children, title, description }: PropsW
 
                 <Link href={url('/')} className="mt-2 inline-flex items-center gap-3">
                     <AppLogoIcon className="size-11 rounded-xl object-contain" />
-                    <span className="text-2xl font-semibold tracking-tight">Smartsense</span>
+                    <span className="text-2xl font-semibold tracking-tight">{name}</span>
                 </Link>
 
                 <div className="mt-8 mb-6 space-y-1.5">

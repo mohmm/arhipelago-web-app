@@ -116,7 +116,7 @@ class AuthController extends Controller
 
     private function signedIn(User $user, Request $request, int $status = Response::HTTP_OK): JsonResponse
     {
-        $token = $user->createToken($request->input('device_name') ?: 'Smartsense app')->plainTextToken;
+        $token = $user->createToken($request->input('device_name') ?: config('app.name').' app')->plainTextToken;
 
         return MeResource::make($this->profiles->load($user, $user))
             ->additional(['token' => $token])

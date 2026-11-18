@@ -1,3 +1,5 @@
+import { usePage } from '@inertiajs/react';
+import type { SharedData } from '@/types';
 import AppLogoIcon from './app-logo-icon';
 
 /**
@@ -5,10 +7,12 @@ import AppLogoIcon from './app-logo-icon';
  * office sidebar, where the sidebar hides the text itself when it collapses.
  */
 export default function AppLogo() {
+    const { name } = usePage<SharedData>().props;
+
     return (
         <>
             <AppLogoIcon className="size-8 shrink-0 rounded-lg object-contain" />
-            <span className="truncate text-base font-semibold tracking-tight">Smartsense</span>
+            <span className="truncate text-base font-semibold tracking-tight">{name}</span>
         </>
     );
 }

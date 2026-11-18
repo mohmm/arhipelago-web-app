@@ -25,7 +25,7 @@ const EU_FUNDING_NOTICE =
 export function SiteFooter() {
     const { t } = useLaravelReactI18n();
     const url = useLocalizedUrl();
-    const { company } = usePage<SharedData>().props;
+    const { company, name } = usePage<SharedData>().props;
 
     const legal = [
         { title: t('Terms of Service'), href: url('/terms') },
@@ -46,7 +46,8 @@ export function SiteFooter() {
                         </div>
                         <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
                             {t(
-                                'Smartsense is a travel app that helps travellers discover Romania: points of interest, ready-made experiences and Maya, an AI assistant.',
+                                ':app is a travel app that helps travellers discover Romania: points of interest, ready-made experiences and Maya, an AI assistant.',
+                                { app: name },
                             )}
                         </p>
 
@@ -157,7 +158,7 @@ export function SiteFooter() {
                         </a>
 
                         <p className="text-sm text-muted-foreground">
-                            © {new Date().getFullYear()} Smartsense. {t('All rights reserved.')}
+                            © {new Date().getFullYear()} {name}. {t('All rights reserved.')}
                         </p>
                         {/* Law 365/2002 art. 5 wants the trader identified on every page, not only in the Terms. */}
                         <p className="text-xs text-muted-foreground">

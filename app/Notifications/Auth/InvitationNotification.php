@@ -24,7 +24,7 @@ class InvitationNotification extends BrandedNotification
 
     protected function subject(object $notifiable): string
     {
-        return __('You have been added to Smartsense');
+        return __('You have been added to :app', ['app' => config('app.name')]);
     }
 
     protected function view(): string
