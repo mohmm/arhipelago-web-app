@@ -9,5 +9,6 @@
     "If an account exists for this address, we have emailed a link to choose a new password.": "إذا كان هناك حساب بهذا العنوان، فقد أرسلنا إليه رابطًا لاختيار كلمة مرور جديدة.",
     "You cannot follow yourself.": "لا يمكنك متابعة نفسك.",
     ":assistant cannot answer right now. Please try again in a moment.": "لا يستطيع أندريه الرد الآن. حاول مرة أخرى بعد قليل.",
-    "Themes used to tag points of interest and experiences.": "مواضيع تُستخدم لتصنيف الأماكن والتجارب."
+    "Themes used to tag points of interest and experiences.": "مواضيع تُستخدم لتصنيف الأماكن والتجارب.",
+    "New accounts are given out by :app. Sign in with the one you received.": "تمنح :app الحسابات الجديدة. سجّل الدخول بالحساب الذي حصلت عليه."
 }

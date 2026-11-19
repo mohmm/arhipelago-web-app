@@ -504,5 +504,6 @@
     "Choose the licence": "Choose the licence",
     "Author (optional)": "Author (optional)",
     "Source (optional)": "Source (optional)",
-    "The app shows photos without a credit, so only your own photos, public domain or CC0 photos can be added.": "The app shows photos without a credit, so only your own photos, public domain or CC0 photos can be added."
+    "The app shows photos without a credit, so only your own photos, public domain or CC0 photos can be added.": "The app shows photos without a credit, so only your own photos, public domain or CC0 photos can be added.",
+    "New accounts are given out by :app. Sign in with the one you received.": "New accounts are given out by :app. Sign in with the one you received."
 }

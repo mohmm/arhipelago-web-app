@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Notification;
 use Laravel\Sanctum\Sanctum;
 
 beforeEach(function () {
+    // Signing up exists only in an app without a fixed set of accounts.
+    config()->set('accounts.limit', null);
     seedRoles();
     LegalDocument::factory()->terms()->create();
     LegalDocument::factory()->privacy()->create();

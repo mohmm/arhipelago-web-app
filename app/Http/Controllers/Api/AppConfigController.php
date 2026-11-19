@@ -32,6 +32,9 @@ class AppConfigController extends Controller
             'website_url' => $page('/'),
             'languages' => array_keys(config('translatable.languages')),
             'map_tiles' => config('services.map_tiles'),
+            // Whether the app offers to create an account: not when it has a
+            // fixed set of accounts (config/accounts.php).
+            'sign_up' => config('accounts.limit') === null,
         ]]);
     }
 }
