@@ -242,15 +242,15 @@ img {
     text-decoration: none;
 }
 
-/* The Smartsense red, written as hex. The application defines it in oklch,
-   which no mail client understands. */
+/* The theme's main colour, --primary in resources/css/app.css, written out:
+   mail clients understand no CSS variables. */
 .button-blue,
 .button-primary {
-    background-color: #d63729;
-    border-bottom: 8px solid #d63729;
-    border-left: 18px solid #d63729;
-    border-right: 18px solid #d63729;
-    border-top: 8px solid #d63729;
+    background-color: #4b7e36;
+    border-bottom: 8px solid #4b7e36;
+    border-left: 18px solid #4b7e36;
+    border-right: 18px solid #4b7e36;
+    border-top: 8px solid #4b7e36;
 }
 
 .button-green,
@@ -274,12 +274,12 @@ img {
 /* Panels */
 
 .panel {
-    border-left: #d63729 solid 4px;
+    border-left: #4b7e36 solid 4px;
     margin: 21px 0;
 }
 
 .panel-content {
-    background-color: #fff6f4;
+    background-color: #f5faf3;
     color: #3f3f46;
     padding: 16px;
 }

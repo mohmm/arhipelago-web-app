@@ -27,7 +27,7 @@ export default function AuthBrandLayout({ children, title, description }: PropsW
 
                 <Link href={url('/')} className="mt-2 inline-flex items-center gap-3">
                     <AppLogoIcon className="size-11 rounded-xl object-contain" />
-                    <span className="text-2xl font-semibold tracking-tight">{name}</span>
+                    <span className="font-display text-2xl font-semibold tracking-tight">{name}</span>
                 </Link>
 
                 <div className="mt-8 mb-6 space-y-1.5">

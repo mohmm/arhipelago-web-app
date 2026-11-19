@@ -46,7 +46,13 @@ export default function LocationPicker({ latitude, longitude, onChange }: Props)
                 <TileLayer url={mapTiles.url} attribution={mapTiles.attribution} />
                 <ClickToPlace onChange={onChange} />
                 <FollowMarker position={position} />
-                {position && <CircleMarker center={position} radius={9} pathOptions={{ color: '#ffffff', weight: 3, fillColor: '#d63729', fillOpacity: 1 }} />}
+                {position && (
+                    <CircleMarker
+                        center={position}
+                        radius={9}
+                        pathOptions={{ color: '#ffffff', weight: 3, fillOpacity: 1, className: 'fill-primary' }}
+                    />
+                )}
             </MapContainer>
         </div>
     );

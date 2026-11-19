@@ -10,12 +10,15 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * The Smartsense theme, taken from the app's design: one red for every action
- * and active state, a soft red behind highlighted items, near-black text, and
- * light grey borders. The admin panel, the website and the mobile app share it.
+ * The Arhipelago theme, taken from its logo: the logo's green, a touch
+ * darker so white text on it stays readable, for every action and active
+ * state, a light green tint behind highlighted items, near-black text, and
+ * light grey borders. Headings are set in Jura, the free font closest to the
+ * logo's letters. The admin panel, the website and the mobile app share it.
  */
 @theme {
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Jura', 'Inter', ui-sans-serif, system-ui, sans-serif;
 
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
@@ -42,7 +45,7 @@
     --color-input: var(--input);
     --color-ring: var(--ring);
 
-    /* The logo's red, for the brand mark and branded surfaces. */
+    /* The logo's colour, for the brand mark and branded surfaces. */
     --color-brand: var(--brand);
     --color-brand-foreground: var(--brand-foreground);
     --color-brand-accent: var(--brand-accent);
@@ -76,24 +79,24 @@
     --card-foreground: #0a0a0a;
     --popover: #ffffff;
     --popover-foreground: #0a0a0a;
-    --primary: #d63729;
+    --primary: #4b7e36;
     --primary-foreground: #ffffff;
     --secondary: #f4f4f4;
     --secondary-foreground: #0a0a0a;
     --muted: #f5f5f5;
     --muted-foreground: #6b6b6b;
-    --accent: #fce9e7;
-    --accent-foreground: #b42318;
+    --accent: #e3efde;
+    --accent-foreground: #34661d;
     --destructive: #b42318;
     --destructive-foreground: #ffffff;
     --border: #e8e8e8;
     --input: #d4d4d4;
-    --ring: #d63729;
+    --ring: #4b7e36;
 
-    --brand: #e24334;
+    --brand: #4b7e36;
     --brand-foreground: #ffffff;
-    --brand-accent: #b42318;
-    --brand-subtle: #fce9e7;
+    --brand-accent: #34661d;
+    --brand-subtle: #e3efde;
 
     --success: #15803d;
     --success-subtle: #dcfce7;
@@ -105,12 +108,12 @@
 
     --sidebar: #ffffff;
     --sidebar-foreground: #0a0a0a;
-    --sidebar-primary: #d63729;
+    --sidebar-primary: #4b7e36;
     --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #fce9e7;
-    --sidebar-accent-foreground: #b42318;
+    --sidebar-accent: #e3efde;
+    --sidebar-accent-foreground: #34661d;
     --sidebar-border: #ededed;
-    --sidebar-ring: #d63729;
+    --sidebar-ring: #4b7e36;
 }
 
 .dark {
@@ -120,24 +123,24 @@
     --card-foreground: #f5f5f5;
     --popover: #17171a;
     --popover-foreground: #f5f5f5;
-    --primary: #e85a4c;
+    --primary: #63974f;
     --primary-foreground: #ffffff;
     --secondary: #232327;
     --secondary-foreground: #f5f5f5;
     --muted: #232327;
     --muted-foreground: #a1a1aa;
-    --accent: #3a1d1a;
-    --accent-foreground: #ffb4aa;
+    --accent: #1a2c13;
+    --accent-foreground: #b4d5a9;
     --destructive: #ef4444;
     --destructive-foreground: #ffffff;
     --border: #2a2a2e;
     --input: #3a3a40;
-    --ring: #e85a4c;
+    --ring: #63974f;
 
-    --brand: #e85a4c;
+    --brand: #63974f;
     --brand-foreground: #ffffff;
-    --brand-accent: #ffb4aa;
-    --brand-subtle: #3a1d1a;
+    --brand-accent: #b4d5a9;
+    --brand-subtle: #1a2c13;
 
     --success: #4ade80;
     --success-subtle: #14321f;
@@ -149,12 +152,12 @@
 
     --sidebar: #131315;
     --sidebar-foreground: #f5f5f5;
-    --sidebar-primary: #e85a4c;
+    --sidebar-primary: #63974f;
     --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #3a1d1a;
-    --sidebar-accent-foreground: #ffb4aa;
+    --sidebar-accent: #1a2c13;
+    --sidebar-accent-foreground: #b4d5a9;
     --sidebar-border: #232327;
-    --sidebar-ring: #e85a4c;
+    --sidebar-ring: #63974f;
 }
 
 @layer base {
@@ -189,10 +192,11 @@
         cursor: pointer;
     }
 
-    /* Headings in the design are set tight. */
+    /* Headings are set in the brand's display font, and tight. */
     h1,
     h2,
     h3 {
+        font-family: var(--font-display);
         letter-spacing: -0.02em;
     }
 }

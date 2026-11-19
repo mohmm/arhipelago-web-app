@@ -12,7 +12,7 @@ export default function AppLogo() {
     return (
         <>
             <AppLogoIcon className="size-8 shrink-0 rounded-lg object-contain" />
-            <span className="truncate text-base font-semibold tracking-tight">{name}</span>
+            <span className="truncate font-display text-base font-semibold tracking-tight">{name}</span>
         </>
     );
 }

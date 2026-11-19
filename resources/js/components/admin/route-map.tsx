@@ -11,7 +11,7 @@ export type RouteStop = { latitude: number; longitude: number; label: string };
 function numberedIcon(number: number): L.DivIcon {
     return L.divIcon({
         className: '',
-        html: `<span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:9999px;background:#d63729;color:#fff;font:600 12px Inter,sans-serif;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.35)">${number}</span>`,
+        html: `<span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:9999px;background:var(--primary);color:var(--primary-foreground);font:600 12px Inter,sans-serif;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.35)">${number}</span>`,
         iconSize: [26, 26],
         iconAnchor: [13, 13],
     });
@@ -30,8 +30,8 @@ function FitToRoute({ points }: { points: [number, number][] }) {
 }
 
 /**
- * An experience on the map, as the app draws it: the measured road in red
- * and each stop as a numbered pin.
+ * An experience on the map, as the app draws it: the measured road in the
+ * theme's main colour and each stop as a numbered pin.
  */
 export default function RouteMap({ polyline, stops }: { polyline: string | null; stops: RouteStop[] }) {
     const { mapTiles } = usePage<SharedData>().props;
@@ -47,11 +47,16 @@ export default function RouteMap({ polyline, stops }: { polyline: string | null;
                 {line.length > 0 && (
                     <>
                         <Polyline positions={line} pathOptions={{ color: '#ffffff', weight: 8, opacity: 0.9 }} />
-                        <Polyline positions={line} pathOptions={{ color: '#d63729', weight: 4 }} />
+                        <Polyline positions={line} pathOptions={{ className: 'stroke-primary', weight: 4 }} />
                     </>
                 )}
                 {stops.map((stop, index) => (
-                    <Marker key={`${stop.latitude},${stop.longitude}`} position={[stop.latitude, stop.longitude]} icon={numberedIcon(index + 1)} title={stop.label} />
+                    <Marker
+                        key={`${stop.latitude},${stop.longitude}`}
+                        position={[stop.latitude, stop.longitude]}
+                        icon={numberedIcon(index + 1)}
+                        title={stop.label}
+                    />
                 ))}
             </MapContainer>
         </div>

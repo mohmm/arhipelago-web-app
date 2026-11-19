@@ -65,7 +65,7 @@ export default function Welcome() {
             <section className="overflow-hidden">
                 <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
                     <div className="grid gap-6">
-                        <p className="text-sm font-semibold text-primary">{name}</p>
+                        <p className="font-display text-sm font-semibold text-primary">{name}</p>
                         <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">{t('The mobile app')}</h1>
                         <p className="text-lg leading-relaxed text-muted-foreground">
                             {t(
