@@ -31,7 +31,7 @@ function AppScreens({ screens, className = '' }: { screens: Screen[]; className?
  */
 export default function Welcome() {
     const { t } = useLaravelReactI18n();
-    const { name } = usePage<SharedData>().props;
+    const { name, assistant } = usePage<SharedData>().props;
 
     const features: Feature[] = [
         {
@@ -41,7 +41,11 @@ export default function Welcome() {
         },
         { icon: Route, title: t('Experiences'), text: t('Day routes with stops at the points of interest, on real roads.') },
         { icon: Map, title: t('Map'), text: t('Points of interest and experiences together, on the same map.') },
-        { icon: Sparkles, title: t('Maya, the AI assistant'), text: t('She recommends what is worth seeing and answers questions about any place.') },
+        {
+            icon: Sparkles,
+            title: t(':assistant, the AI assistant', { assistant }),
+            text: t('Recommends what is worth seeing and answers questions about any place.'),
+        },
         { icon: Users, title: t('Community'), text: t('Photos, likes, comments and reviews from other travellers.') },
         {
             icon: Languages,
@@ -56,8 +60,8 @@ export default function Welcome() {
                 <meta
                     name="description"
                     content={t(
-                        ':app is a travel app that helps travellers discover Romania: points of interest, ready-made experiences and Maya, an AI assistant.',
-                        { app: name },
+                        ':app is a travel app that helps travellers discover Romania: points of interest, ready-made experiences and :assistant, an AI assistant.',
+                        { app: name, assistant },
                     )}
                 />
             </Head>
@@ -69,8 +73,8 @@ export default function Welcome() {
                         <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">{t('The mobile app')}</h1>
                         <p className="text-lg leading-relaxed text-muted-foreground">
                             {t(
-                                ':app is a travel app. It helps travellers discover Romania: points of interest, ready-made experiences and Maya, an AI assistant who recommends what is worth seeing. All on the same map, with photos and impressions from other travellers.',
-                                { app: name },
+                                ':app is a travel app. It helps travellers discover Romania: points of interest, ready-made experiences and :assistant, an AI assistant who recommends what is worth seeing. All on the same map, with photos and impressions from other travellers.',
+                                { app: name, assistant },
                             )}
                         </p>
                     </div>
@@ -116,14 +120,15 @@ export default function Welcome() {
                         className="lg:order-2"
                         screens={[
                             { src: '/images/app/experiences.webp', alt: t('The experiences in the app') },
-                            { src: '/images/app/maya.webp', alt: t('A conversation with Maya in the app') },
+                            { src: '/images/app/maya.webp', alt: t('A conversation with :assistant in the app', { assistant }) },
                         ]}
                     />
                     <div className="grid gap-6">
                         <h2 className="text-4xl font-bold tracking-tight">{t('Routes ready to go, and a guide who knows them')}</h2>
                         <p className="text-lg leading-relaxed text-muted-foreground">
                             {t(
-                                'An experience is a day route with stops at points of interest, measured on real roads: classic, with the family, car-free or in winter. Maya recommends them, answers questions about any of them, and says plainly when she does not know something instead of making it up.',
+                                'An experience is a day route with stops at points of interest, measured on real roads: classic, with the family, car-free or in winter. :assistant recommends them, answers questions about any of them, and says plainly when something is not known instead of making it up.',
+                                { assistant },
                             )}
                         </p>
                     </div>

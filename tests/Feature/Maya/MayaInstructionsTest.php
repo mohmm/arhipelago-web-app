@@ -3,10 +3,11 @@
 use App\Settings\MayaSettings;
 
 /*
- * Maya's instructions were first written for Smartsense. She introduces herself
- * with this app's own name instead, which is APP_NAME.
+ * The instructions were first written for Smartsense and its assistant, Maya.
+ * The assistant introduces itself with its own name instead, config('maya.name'),
+ * and with this app's name, APP_NAME.
  */
-it('names this app in Maya\'s instructions', function () {
+it('names the assistant and this app in the instructions', function () {
     expect(app(MayaSettings::class)->instructions)
-        ->toContain('You are Maya, the travel assistant of '.config('app.name').',');
+        ->toContain('You are '.config('maya.name').', the travel assistant of '.config('app.name').',');
 });

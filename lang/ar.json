@@ -8,6 +8,6 @@
     "This account is for the :app mobile app. Sign in there.": "هذا الحساب مخصص لتطبيق :app. سجّل الدخول من التطبيق.",
     "If an account exists for this address, we have emailed a link to choose a new password.": "إذا كان هناك حساب بهذا العنوان، فقد أرسلنا إليه رابطًا لاختيار كلمة مرور جديدة.",
     "You cannot follow yourself.": "لا يمكنك متابعة نفسك.",
-    "Maya cannot answer right now. Please try again in a moment.": "لا تستطيع مايا الرد الآن. حاول مرة أخرى بعد قليل.",
+    ":assistant cannot answer right now. Please try again in a moment.": "لا يستطيع أندريه الرد الآن. حاول مرة أخرى بعد قليل.",
     "Themes used to tag points of interest and experiences.": "مواضيع تُستخدم لتصنيف الأماكن والتجارب."
 }

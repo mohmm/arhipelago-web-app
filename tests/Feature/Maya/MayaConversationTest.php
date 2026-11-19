@@ -98,7 +98,7 @@ it('stores nothing and asks the traveller to try again when the model fails', fu
 
     $this->postJson("/api/maya/conversations/{$conversation->id}/messages", ['content' => 'Salut'])
         ->assertStatus(503)
-        ->assertJsonPath('message', 'Maya nu poate răspunde acum. Încearcă din nou peste câteva momente.');
+        ->assertJsonPath('message', config('maya.name').' nu poate răspunde acum. Încearcă din nou peste câteva momente.');
 
     expect(MayaMessage::query()->count())->toBe(0);
 });

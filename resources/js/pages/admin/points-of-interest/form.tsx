@@ -1,4 +1,4 @@
-import { Head, Link, router, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { Trash2 } from 'lucide-react';
 import type { FormEvent } from 'react';
@@ -18,6 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import AppLayout from '@/layouts/app-layout';
 import { useLocalizedUrl } from '@/lib/locale';
+import type { SharedData } from '@/types';
 
 type Option = { value: number; label: string };
 
@@ -42,13 +43,16 @@ const TRANSLATED = ['name', 'type', 'locality', 'address', 'description'];
 
 function emptyTranslations(place: Place | null): Record<string, string> {
     return Object.fromEntries(
-        TRANSLATED.flatMap((attribute) => ['ro', 'en', 'ar'].map((locale) => [`${attribute}_${locale}`, (place?.[`${attribute}_${locale}`] as string | null) ?? ''])),
+        TRANSLATED.flatMap((attribute) =>
+            ['ro', 'en', 'ar'].map((locale) => [`${attribute}_${locale}`, (place?.[`${attribute}_${locale}`] as string | null) ?? '']),
+        ),
     );
 }
 
 export default function PointOfInterestForm({ place, categories, topics, photoLicenses }: Props) {
     const { t } = useLaravelReactI18n();
     const url = useLocalizedUrl();
+    const { assistant } = usePage<SharedData>().props;
     const base = url('/admin/points-of-interest');
 
     const form = useForm({
@@ -87,7 +91,10 @@ export default function PointOfInterestForm({ place, categories, topics, photoLi
 
             <form onSubmit={save} className="flex flex-1 flex-col gap-6 p-4 md:p-6">
                 <div className="flex flex-wrap items-start justify-between gap-4">
-                    <Heading title={title} description={t('Written in Romanian first; English and Arabic fall back to Romanian until they are written.')} />
+                    <Heading
+                        title={title}
+                        description={t('Written in Romanian first; English and Arabic fall back to Romanian until they are written.')}
+                    />
                     <div className="flex items-center gap-3">
                         <label className="flex items-center gap-2 text-sm font-medium">
                             <Switch checked={form.data.is_published} onCheckedChange={(checked) => form.setData('is_published', checked)} />
@@ -109,11 +116,39 @@ export default function PointOfInterestForm({ place, categories, topics, photoLi
                             <CardContent className="grid gap-5">
                                 <TranslatedField label={t('Name')} name="name" values={form.data} onChange={setTranslated} errors={form.errors} />
                                 <div className="grid gap-5 sm:grid-cols-2">
-                                    <TranslatedField label={t('Kind of place')} name="type" values={form.data} onChange={setTranslated} errors={form.errors} hint={t('Short, e.g. “Castle” or “Fortress”.')} />
-                                    <TranslatedField label={t('Locality')} name="locality" values={form.data} onChange={setTranslated} errors={form.errors} hint={t('As the list shows it, e.g. “Bran” or “near Zărnești”.')} />
+                                    <TranslatedField
+                                        label={t('Kind of place')}
+                                        name="type"
+                                        values={form.data}
+                                        onChange={setTranslated}
+                                        errors={form.errors}
+                                        hint={t('Short, e.g. “Castle” or “Fortress”.')}
+                                    />
+                                    <TranslatedField
+                                        label={t('Locality')}
+                                        name="locality"
+                                        values={form.data}
+                                        onChange={setTranslated}
+                                        errors={form.errors}
+                                        hint={t('As the list shows it, e.g. “Bran” or “near Zărnești”.')}
+                                    />
                                 </div>
-                                <TranslatedField label={t('Address')} name="address" values={form.data} onChange={setTranslated} errors={form.errors} hint={t('In full, e.g. “Bran commune, Brașov County”.')} />
-                                <TranslatedField label={t('Description')} name="description" values={form.data} onChange={setTranslated} errors={form.errors} multiline />
+                                <TranslatedField
+                                    label={t('Address')}
+                                    name="address"
+                                    values={form.data}
+                                    onChange={setTranslated}
+                                    errors={form.errors}
+                                    hint={t('In full, e.g. “Bran commune, Brașov County”.')}
+                                />
+                                <TranslatedField
+                                    label={t('Description')}
+                                    name="description"
+                                    values={form.data}
+                                    onChange={setTranslated}
+                                    errors={form.errors}
+                                    multiline
+                                />
                             </CardContent>
                         </Card>
 
@@ -131,12 +166,28 @@ export default function PointOfInterestForm({ place, categories, topics, photoLi
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     <div className="grid gap-2">
                                         <Label htmlFor="latitude">{t('Latitude')}</Label>
-                                        <Input id="latitude" type="number" step="0.000001" value={form.data.latitude ?? ''} onChange={(event) => form.setData('latitude', event.target.value == '' ? null : Number(event.target.value))} />
+                                        <Input
+                                            id="latitude"
+                                            type="number"
+                                            step="0.000001"
+                                            value={form.data.latitude ?? ''}
+                                            onChange={(event) =>
+                                                form.setData('latitude', event.target.value == '' ? null : Number(event.target.value))
+                                            }
+                                        />
                                         <InputError message={form.errors.latitude} />
                                     </div>
                                     <div className="grid gap-2">
                                         <Label htmlFor="longitude">{t('Longitude')}</Label>
-                                        <Input id="longitude" type="number" step="0.000001" value={form.data.longitude ?? ''} onChange={(event) => form.setData('longitude', event.target.value == '' ? null : Number(event.target.value))} />
+                                        <Input
+                                            id="longitude"
+                                            type="number"
+                                            step="0.000001"
+                                            value={form.data.longitude ?? ''}
+                                            onChange={(event) =>
+                                                form.setData('longitude', event.target.value == '' ? null : Number(event.target.value))
+                                            }
+                                        />
                                         <InputError message={form.errors.longitude} />
                                     </div>
                                 </div>
@@ -147,7 +198,9 @@ export default function PointOfInterestForm({ place, categories, topics, photoLi
                             <Card>
                                 <CardHeader>
                                     <CardTitle>{t('Photos')}</CardTitle>
-                                    <CardDescription>{t('The first photo is the cover. Credit every photo as its licence requires.')}</CardDescription>
+                                    <CardDescription>
+                                        {t('The first photo is the cover. Credit every photo as its licence requires.')}
+                                    </CardDescription>
                                 </CardHeader>
                                 <CardContent>
                                     <PhotoManager placeId={place.id} photos={place.photos} licenses={photoLicenses} />
@@ -164,7 +217,10 @@ export default function PointOfInterestForm({ place, categories, topics, photoLi
                             <CardContent className="grid gap-5">
                                 <div className="grid gap-2">
                                     <Label>{t('Category')}</Label>
-                                    <Select value={String(form.data.category_id)} onValueChange={(value) => form.setData('category_id', Number(value))}>
+                                    <Select
+                                        value={String(form.data.category_id)}
+                                        onValueChange={(value) => form.setData('category_id', Number(value))}
+                                    >
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
@@ -179,17 +235,31 @@ export default function PointOfInterestForm({ place, categories, topics, photoLi
                                     <InputError message={form.errors.category_id} />
                                 </div>
                                 <label className="flex items-center gap-3 text-sm">
-                                    <Checkbox checked={form.data.is_historic_monument} onCheckedChange={(checked) => form.setData('is_historic_monument', checked == true)} />
+                                    <Checkbox
+                                        checked={form.data.is_historic_monument}
+                                        onCheckedChange={(checked) => form.setData('is_historic_monument', checked == true)}
+                                    />
                                     {t('Listed historic monument')}
                                 </label>
                                 <div className="grid gap-2">
                                     <Label htmlFor="website">{t('Official website')}</Label>
-                                    <Input id="website" type="url" value={form.data.website} onChange={(event) => form.setData('website', event.target.value)} placeholder="https://" />
+                                    <Input
+                                        id="website"
+                                        type="url"
+                                        value={form.data.website}
+                                        onChange={(event) => form.setData('website', event.target.value)}
+                                        placeholder="https://"
+                                    />
                                     <InputError message={form.errors.website} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="slug">{t('Address in links')}</Label>
-                                    <Input id="slug" value={form.data.slug} onChange={(event) => form.setData('slug', event.target.value)} placeholder={t('Made from the name')} />
+                                    <Input
+                                        id="slug"
+                                        value={form.data.slug}
+                                        onChange={(event) => form.setData('slug', event.target.value)}
+                                        placeholder={t('Made from the name')}
+                                    />
                                     <InputError message={form.errors.slug} />
                                 </div>
                             </CardContent>
@@ -198,7 +268,7 @@ export default function PointOfInterestForm({ place, categories, topics, photoLi
                         <Card>
                             <CardHeader>
                                 <CardTitle>{t('Themes')}</CardTitle>
-                                <CardDescription>{t('Help Maya recommend it to the right travellers.')}</CardDescription>
+                                <CardDescription>{t('Help :assistant recommend it to the right travellers.', { assistant })}</CardDescription>
                             </CardHeader>
                             <CardContent className="grid gap-3">
                                 {topics.map((topic) => (
@@ -206,7 +276,10 @@ export default function PointOfInterestForm({ place, categories, topics, photoLi
                                         <Checkbox
                                             checked={form.data.topics.includes(topic.value)}
                                             onCheckedChange={(checked) =>
-                                                form.setData('topics', checked ? [...form.data.topics, topic.value] : form.data.topics.filter((id) => id != topic.value))
+                                                form.setData(
+                                                    'topics',
+                                                    checked ? [...form.data.topics, topic.value] : form.data.topics.filter((id) => id != topic.value),
+                                                )
                                             }
                                         />
                                         {topic.label}
@@ -223,7 +296,11 @@ export default function PointOfInterestForm({ place, categories, topics, photoLi
                                 <CardContent className="grid gap-2 text-sm">
                                     {place.experiences.length == 0 && <p className="text-muted-foreground">{t('No experience stops here yet.')}</p>}
                                     {place.experiences.map((experience) => (
-                                        <Link key={experience.id} href={url(`/admin/experiences/${experience.id}/edit`)} className="text-primary hover:underline">
+                                        <Link
+                                            key={experience.id}
+                                            href={url(`/admin/experiences/${experience.id}/edit`)}
+                                            className="text-primary hover:underline"
+                                        >
                                             {experience.title}
                                         </Link>
                                     ))}

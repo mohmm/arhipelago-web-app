@@ -29,7 +29,7 @@ class MayaSettingsController extends Controller
         $settings->instructions = $request->validated('instructions');
         $settings->save();
 
-        Toast::success(__('Maya\'s instructions saved. They apply to her next reply.'));
+        Toast::success(__('Instructions for :assistant saved. They apply from the next reply.', ['assistant' => config('maya.name')]));
 
         return back();
     }

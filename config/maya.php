@@ -12,6 +12,11 @@ return [
     |
     */
 
+    // The assistant's name, as travellers and the admin panel see it: Maya is
+    // only the feature's name in the code. The texts in lang/*.json and in the
+    // app write the name with each language's own grammar.
+    'name' => 'Andrei',
+
     // The provider in config/ai.php and the model Maya answers with. She calls
     // tools and returns structured replies, so the model must support both.
     'provider' => env('MAYA_PROVIDER', 'openai'),

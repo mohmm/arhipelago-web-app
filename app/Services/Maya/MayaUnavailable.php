@@ -14,7 +14,7 @@ class MayaUnavailable extends RuntimeException
     public function render(): JsonResponse
     {
         return response()->json([
-            'message' => __('Maya cannot answer right now. Please try again in a moment.'),
+            'message' => __(':assistant cannot answer right now. Please try again in a moment.', ['assistant' => config('maya.name')]),
         ], 503);
     }
 }

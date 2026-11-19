@@ -25,7 +25,7 @@ const EU_FUNDING_NOTICE =
 export function SiteFooter() {
     const { t } = useLaravelReactI18n();
     const url = useLocalizedUrl();
-    const { company, name } = usePage<SharedData>().props;
+    const { company, name, assistant } = usePage<SharedData>().props;
 
     const legal = [
         { title: t('Terms of Service'), href: url('/terms') },
@@ -46,8 +46,8 @@ export function SiteFooter() {
                         </div>
                         <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
                             {t(
-                                ':app is a travel app that helps travellers discover Romania: points of interest, ready-made experiences and Maya, an AI assistant.',
-                                { app: name },
+                                ':app is a travel app that helps travellers discover Romania: points of interest, ready-made experiences and :assistant, an AI assistant.',
+                                { app: name, assistant },
                             )}
                         </p>
 

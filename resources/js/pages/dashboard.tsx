@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { useLaravelReactI18n } from 'laravel-react-i18n';
 import { EyeOff, MapPin, MessageSquare, Route, Sparkles, Users } from 'lucide-react';
 import type { ComponentType } from 'react';
@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { formatDateTime } from '@/lib/format';
 import { useLocalizedUrl } from '@/lib/locale';
+import type { SharedData } from '@/types';
 
 type Stats = {
     pointsOfInterest: { published: number; total: number };
@@ -26,7 +27,19 @@ type RecentPost = {
     createdAt: string | null;
 };
 
-function StatCard({ icon: Icon, label, value, detail, href }: { icon: ComponentType<{ className?: string }>; label: string; value: number; detail: string; href?: string }) {
+function StatCard({
+    icon: Icon,
+    label,
+    value,
+    detail,
+    href,
+}: {
+    icon: ComponentType<{ className?: string }>;
+    label: string;
+    value: number;
+    detail: string;
+    href?: string;
+}) {
     const body = (
         <Card className="h-full transition-shadow hover:shadow-md">
             <CardContent className="flex items-start gap-4 p-5">
@@ -58,6 +71,7 @@ function StatCard({ icon: Icon, label, value, detail, href }: { icon: ComponentT
 export default function Dashboard({ stats, recentPosts }: { stats: Stats; recentPosts: RecentPost[] }) {
     const { t, currentLocale } = useLaravelReactI18n();
     const url = useLocalizedUrl();
+    const { assistant } = usePage<SharedData>().props;
     const locale = currentLocale() ?? 'ro';
 
     return (
@@ -96,7 +110,12 @@ export default function Dashboard({ stats, recentPosts }: { stats: Stats; recent
                         detail={t(':count new this week', { count: String(stats.travellers.thisWeek) })}
                         href={url('/admin/users')}
                     />
-                    <StatCard icon={Sparkles} label={t('Conversations with Maya')} value={stats.mayaConversationsThisWeek} detail={t('this week')} />
+                    <StatCard
+                        icon={Sparkles}
+                        label={t('Conversations with :assistant', { assistant })}
+                        value={stats.mayaConversationsThisWeek}
+                        detail={t('this week')}
+                    />
                 </div>
 
                 <Card>
