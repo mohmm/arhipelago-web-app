@@ -130,13 +130,34 @@ class LegalDocument extends Model
         );
     }
 
-    private function renderMarkdown(?string $locale): string
+    /**
+     * The document's Markdown, with this site's own details filled in.
+     *
+     * The text cites its own addresses ("the version in force is the one
+     * published at …/terms"), the domain that sets the cookies and the session
+     * cookie, which Laravel names after APP_NAME. They are stored as the
+     * placeholders [APP_URL], [APP_HOST] and [SESSION_COOKIE] and filled in from
+     * this site's configuration whenever the text is shown, so the address is
+     * always APP_URL and a copied database never carries another site's.
+     */
+    public function markdown(?string $locale = null): string
     {
         $body = $locale == null
             ? $this->getTranslated('body')
             : $this->getAttribute("body_{$locale}");
 
-        return (string) Str::markdown((string) $body, [
+        $url = rtrim((string) config('app.url'), '/');
+
+        return str_replace(
+            ['[APP_URL]', '[APP_HOST]', '[SESSION_COOKIE]'],
+            [$url, (string) (parse_url($url, PHP_URL_HOST) ?: $url), (string) config('session.cookie')],
+            (string) $body,
+        );
+    }
+
+    private function renderMarkdown(?string $locale): string
+    {
+        return (string) Str::markdown($this->markdown($locale), [
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
         ]);

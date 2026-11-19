@@ -15,7 +15,8 @@ use RuntimeException;
  *
  * The bodies live beside this file as Markdown rather than inside it, because
  * they are long, they are diffed and reviewed as prose, and the language pair
- * has to stay comparable line by line.
+ * has to stay comparable line by line. They keep their placeholders, such as
+ * [APP_URL]: LegalDocument::markdown() fills them in whenever a page is shown.
  */
 class LegalDocumentSeeder extends Seeder
 {
@@ -108,27 +109,6 @@ class LegalDocumentSeeder extends Seeder
             throw new RuntimeException("Missing legal document source: {$path}");
         }
 
-        return $this->resolvePlaceholders(trim((string) file_get_contents($path)));
-    }
-
-    /**
-     * Point the documents at wherever this deployment actually lives.
-     *
-     * The text cites its own addresses ("the version in force is the one
-     * published at …/terms"), states which domain sets the cookies and names
-     * the session cookie, which Laravel names after APP_NAME. So it is written
-     * with placeholders that become this deployment's address and cookie name.
-     *
-     * Resolved at seed time rather than at render time because the result is
-     * contract text: once a document is published it must not silently change
-     * wording because an environment variable moved. Editing it afterwards goes
-     * through the back office, where the change is versioned and audited.
-     */
-    private function resolvePlaceholders(string $body): string
-    {
-        $url = rtrim((string) config('app.url'), '/');
-        $host = (string) (parse_url($url, PHP_URL_HOST) ?: $url);
-
-        return str_replace(['[APP_URL]', '[APP_HOST]', '[SESSION_COOKIE]'], [$url, $host, (string) config('session.cookie')], $body);
+        return trim((string) file_get_contents($path));
     }
 }

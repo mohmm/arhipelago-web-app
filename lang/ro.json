@@ -147,6 +147,7 @@
     "Manage your profile and account settings": "Administrează-ți profilul și setările contului",
     "Map": "Hartă",
     "Markdown. Start headings at ## — the title above is the page heading. HTML is removed.": "Markdown. Începe titlurile de la ## — titlul de mai sus este titlul paginii. HTML-ul este eliminat.",
+    "[APP_URL], [APP_HOST] and [SESSION_COOKIE] show this site’s address, domain and session cookie.": "[APP_URL], [APP_HOST] și [SESSION_COOKIE] afișează adresa site-ului, domeniul și cookie-ul de sesiune.",
     "Menu": "Meniu",
     "Message": "Mesaj",
     "Messages": "Mesaje",

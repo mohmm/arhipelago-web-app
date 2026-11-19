@@ -147,6 +147,7 @@
     "Manage your profile and account settings": "Manage your profile and account settings",
     "Map": "Map",
     "Markdown. Start headings at ## — the title above is the page heading. HTML is removed.": "Markdown. Start headings at ## — the title above is the page heading. HTML is removed.",
+    "[APP_URL], [APP_HOST] and [SESSION_COOKIE] show this site’s address, domain and session cookie.": "[APP_URL], [APP_HOST] and [SESSION_COOKIE] show this site’s address, domain and session cookie.",
     "Menu": "Menu",
     "Message": "Message",
     "Messages": "Messages",

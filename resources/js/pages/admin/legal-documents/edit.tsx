@@ -125,11 +125,7 @@ export default function EditLegalDocument({ document }: Props) {
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="effective_date">{t('In force from')}</Label>
-                                <DateField
-                                    id="effective_date"
-                                    value={data.effective_date}
-                                    onChange={(value) => setData('effective_date', value)}
-                                />
+                                <DateField id="effective_date" value={data.effective_date} onChange={(value) => setData('effective_date', value)} />
                                 <p className="text-xs text-muted-foreground">
                                     {t('The date this wording applies from. Leave empty while it is still a draft.')}
                                 </p>
@@ -147,11 +143,7 @@ export default function EditLegalDocument({ document }: Props) {
                         <CardContent className="space-y-4">
                             <div className="grid gap-2">
                                 <Label htmlFor={`title_${language.key}`}>{t('Title')}</Label>
-                                <Input
-                                    id={`title_${language.key}`}
-                                    value={language.title}
-                                    onChange={(e) => language.onTitle(e.target.value)}
-                                />
+                                <Input id={`title_${language.key}`} value={language.title} onChange={(e) => language.onTitle(e.target.value)} />
                                 <InputError message={language.titleError} />
                             </div>
 
@@ -166,7 +158,8 @@ export default function EditLegalDocument({ document }: Props) {
                                         spellCheck={false}
                                     />
                                     <p className="text-xs text-muted-foreground">
-                                        {t('Markdown. Start headings at ## — the title above is the page heading. HTML is removed.')}
+                                        {t('Markdown. Start headings at ## — the title above is the page heading. HTML is removed.')}{' '}
+                                        {t('[APP_URL], [APP_HOST] and [SESSION_COOKIE] show this site’s address, domain and session cookie.')}
                                     </p>
                                     <InputError message={language.bodyError} />
                                 </div>
@@ -175,13 +168,11 @@ export default function EditLegalDocument({ document }: Props) {
                                     <Label>{t('Published version')}</Label>
                                     <div className="max-h-[28rem] overflow-y-auto rounded-md border border-border p-4">
                                         <div
-                                            className="prose prose-sm prose-neutral max-w-none dark:prose-invert prose-table:block prose-table:overflow-x-auto"
+                                            className="prose prose-sm max-w-none prose-neutral dark:prose-invert prose-table:block prose-table:overflow-x-auto"
                                             dangerouslySetInnerHTML={{ __html: language.preview }}
                                         />
                                     </div>
-                                    <p className="text-xs text-muted-foreground">
-                                        {t('What visitors see right now. It updates when you save.')}
-                                    </p>
+                                    <p className="text-xs text-muted-foreground">{t('What visitors see right now. It updates when you save.')}</p>
                                 </div>
                             </div>
                         </CardContent>

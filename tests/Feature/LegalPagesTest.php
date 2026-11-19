@@ -100,22 +100,47 @@ it('anchors every section it lists', function () {
 });
 
 it('publishes the documents at the address this deployment actually answers on', function () {
-    config()->set('app.url', 'https://app.smartsense.ro');
-
+    // Seeded on one address and shown on another, as when a database is copied
+    // from a development computer to the server: the pages follow APP_URL.
+    config()->set('app.url', 'http://localhost:8005');
     $this->seed(LegalDocumentSeeder::class);
+    config()->set('app.url', 'https://app.smartsense.ro');
 
     $terms = LegalDocument::where('slug', LegalDocument::TERMS)->sole();
 
     // The Terms cite their own URL — "the version in force is the one published
     // at …" — so a literal domain sends a customer somewhere this application is
     // not served from the moment it moves.
-    expect($terms->body_ro)->toContain('https://app.smartsense.ro/terms')
-        ->and($terms->body_en)->toContain('https://app.smartsense.ro/terms');
+    expect($terms->markdown('ro'))->toContain('https://app.smartsense.ro/terms')
+        ->and($terms->markdown('en'))->toContain('https://app.smartsense.ro/terms')
+        ->and($terms->renderedBody('en'))->toContain('https://app.smartsense.ro/terms')->not->toContain('localhost');
 
-    // And the Cookie Policy names the domain that sets the cookies.
+    // And the Cookie Policy names the domain that sets the cookies, and the
+    // session cookie this site really sets.
     $cookies = LegalDocument::where('slug', LegalDocument::COOKIES)->sole();
-    expect($cookies->body_en)->toContain('app.smartsense.ro')
-        ->and($cookies->body_en)->not->toContain('https://app.smartsense.ro domain');
+    expect($cookies->markdown('en'))->toContain('app.smartsense.ro')
+        ->and($cookies->markdown('en'))->not->toContain('https://app.smartsense.ro domain')
+        ->and($cookies->markdown('en'))->toContain(config('session.cookie'));
+});
+
+it('stores the placeholders, not this site\'s address', function () {
+    $this->seed(LegalDocumentSeeder::class);
+
+    $terms = LegalDocument::where('slug', LegalDocument::TERMS)->sole();
+
+    expect($terms->body_en)->toContain('[APP_URL]/terms')
+        ->and($terms->body_en)->not->toContain((string) config('app.url'));
+});
+
+it('puts the placeholders back into documents seeded on a development computer', function () {
+    $this->seed(LegalDocumentSeeder::class);
+    $cookies = LegalDocument::where('slug', LegalDocument::COOKIES)->sole();
+    $template = $cookies->body_en;
+    $cookies->update(['body_en' => str_replace(['[APP_URL]', '[APP_HOST]', '[SESSION_COOKIE]'], ['http://localhost:8005', 'localhost', 'smartsense_session'], $template)]);
+
+    (require database_path('migrations/2026_11_19_120000_restore_the_placeholders_in_the_legal_documents.php'))->up();
+
+    expect($cookies->fresh()->body_en)->toBe($template);
 });
 
 it('never publishes a document with an unsubstituted placeholder', function () {
@@ -126,8 +151,8 @@ it('never publishes a document with an unsubstituted placeholder', function () {
     foreach (LegalDocument::SLUGS as $slug) {
         $document = LegalDocument::where('slug', $slug)->sole();
 
-        foreach (['body_ro', 'body_en'] as $column) {
-            expect($document->{$column})->not->toMatch('/\[[A-Z_]{3,}\]/', "{$slug}.{$column}");
+        foreach (['ro', 'en'] as $locale) {
+            expect($document->renderedBody($locale))->not->toMatch('/\[[A-Z_]{3,}\]/', "{$slug}.{$locale}");
         }
     }
 });
@@ -151,8 +176,8 @@ it('names the cookies the website actually sets', function () {
     $cookies = LegalDocument::where('slug', LegalDocument::COOKIES)->sole();
 
     foreach ([config('session.cookie'), 'XSRF-TOKEN', 'appearance', 'sidebar_state'] as $name) {
-        expect($cookies->body_en)->toContain("`{$name}`")
-            ->and($cookies->body_ro)->toContain("`{$name}`");
+        expect($cookies->markdown('en'))->toContain("`{$name}`")
+            ->and($cookies->markdown('ro'))->toContain("`{$name}`");
     }
 });
 

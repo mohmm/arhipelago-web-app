@@ -68,9 +68,7 @@ class RecordLegalAcceptance
      */
     private function hash(LegalDocument $document, string $locale): string
     {
-        $body = $locale == 'ro' ? $document->body_ro : $document->body_en;
-
-        return hash('sha256', (string) $body);
+        return hash('sha256', $document->markdown($locale == 'ro' ? 'ro' : 'en'));
     }
 
     /**
